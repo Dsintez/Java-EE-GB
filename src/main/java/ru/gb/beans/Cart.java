@@ -1,11 +1,14 @@
-package ru.gb.entity;
+package ru.gb.beans;
 
-import ru.gb.beans.ProductRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.gb.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@Scope("prototype")
 public class Cart {
 
     private List<Product> productsCarts = new ArrayList<>();
@@ -18,4 +21,7 @@ public class Cart {
         productsCarts.remove(ProductRepository.getInstance().getProduct(id));
     }
 
+    public List<Product> getProductsCarts() {
+        return productsCarts;
+    }
 }
