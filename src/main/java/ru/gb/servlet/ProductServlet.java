@@ -18,11 +18,11 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cart cart = new Cart();
+        /*Cart cart = new Cart();
         for (int i = 0; i < 5; i++) {
             cart.putProduct(i);
         }
-        req.setAttribute("cart", cart);
+        req.setAttribute("cart", cart);*/
 
         getServletContext().getRequestDispatcher("/product.jsp").forward(req, resp);
     }

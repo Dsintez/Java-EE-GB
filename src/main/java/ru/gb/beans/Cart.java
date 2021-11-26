@@ -12,13 +12,18 @@ import java.util.List;
 public class Cart {
 
     private List<Product> productsCarts = new ArrayList<>();
+    private final ProductRepository productRepository;
+
+    public Cart(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public void putProduct(int id) {
-        productsCarts.add(ProductRepository.getInstance().getProduct(id));
+        productsCarts.add(productRepository.getProduct(id));
     }
 
     public void removeProduct(int id) {
-        productsCarts.remove(ProductRepository.getInstance().getProduct(id));
+        productsCarts.remove(productRepository.getProduct(id));
     }
 
     public List<Product> getProductsCarts() {

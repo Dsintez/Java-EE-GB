@@ -9,8 +9,6 @@ import java.util.List;
 @Component
 public class ProductRepository{
 
-    private static ProductRepository instance;
-
     @InjectProducts
     private List<Product> products;
 
@@ -23,15 +21,7 @@ public class ProductRepository{
         return null;
     }
 
-    private ProductRepository() {
-        instance = this;
-    }
-
     public List<Product> getProducts() {
         return products;
-    }
-
-    public static ProductRepository getInstance() {
-        return instance;
     }
 }

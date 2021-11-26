@@ -18,8 +18,10 @@ public class ChangeCart {
         for (Product product : cart.getProductsCarts()) {
             System.out.println(product);
         }
-        Cart cart2 = context.getBean(Cart.class);
-        for (Product product : cart2.getProductsCarts()) {
+        cart = context.getBean(Cart.class);
+        cart.putProduct(1);
+        cart.putProduct(2);
+        for (Product product : cart.getProductsCarts()) {
             System.out.println(product);
         }
         context.close();
