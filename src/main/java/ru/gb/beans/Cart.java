@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Scope("prototype")
+//@Scope("prototype")
 public class Cart {
 
     private List<Product> productsCarts = new ArrayList<>();

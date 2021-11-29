@@ -1,23 +1,39 @@
 package ru.gb.service;
 
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.gb.beans.ProductRepository;
 import ru.gb.entity.Product;
 
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    private static ProductService instance;
+    private final ProductRepository productRepository;
 
-    public Product createNewProduct(int id, String title, float cost){
-        return new Product(id, title, cost);
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 
-    public static ProductService getInstance() {
-        return instance;
+    public Product edit(Product product) {
+        return productRepository.edit(product);
     }
 
-    static {
-        instance = new ProductService();
+    public Product findById(int id) {
+        return productRepository.findById(id).orElse(new Product());
     }
+
+    public Iterable<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    public long count() {
+        return productRepository.count();
+    }
+
+    public void deleteById(int id) {
+        productRepository.deleteById(id);
+    }
+
 }
