@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import ru.gb.anatations.InjectProducts;
 import ru.gb.entity.Product;
-import ru.gb.service.ProductService;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
@@ -20,8 +19,8 @@ public class InjectProductAnnotationBeanPostProcessor implements BeanPostProcess
 
     List<Product> products = new ArrayList<>();
     private String words[];
-    private float costs[];
-    private int id[];
+    private Float costs[];
+    private Integer id[];
 
     @Autowired
     private Environment environment;
@@ -29,25 +28,21 @@ public class InjectProductAnnotationBeanPostProcessor implements BeanPostProcess
     @PostConstruct
     public void init() {
         words = environment.getProperty("ProductNames").split(",");
-        String[] tmp = environment.getProperty("ProductCasts").split(",");
-        costs = new float[tmp.length];
-        for (int i = 0; i < tmp.length; i++) {
-            costs[i] = Float.parseFloat(tmp[i]);
+        String[] costs = environment.getProperty("ProductCosts").split(",");
+        String[] ids = environment.getProperty("ProductID").split(",");
+        this.costs = new Float[costs.length];
+        this.id = new Integer[ids.length];
+        for (int i = 0; i < costs.length; i++) {
+            this.costs[i] = Float.parseFloat(costs[i]);
+            this.id[i] = Integer.parseInt(ids[i]);
         }
-        tmp = environment.getProperty("ProductID").split(",");
-        id = new int[tmp.length];
-        for (int i = 0; i < tmp.length; i++) {
-            id[i] = Integer.parseInt(tmp[i]);
+        for (int i = 0; i < words.length; i++) {
+            products.add(new Product(this.id[i], words[i], this.costs[i]));
         }
-        words = environment.getProperty("ProductNames").split(",");
     }
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        //TODO
-        for (int i = 0; i < 5; i++) {
-            products.add(ProductService.getInstance().createNewProduct(id[i], words[i], costs[i]));
-        }
         Field[] fields = bean.getClass().getDeclaredFields();
         for (Field field : fields) {
             InjectProducts annotation = field.getAnnotation(InjectProducts.class);

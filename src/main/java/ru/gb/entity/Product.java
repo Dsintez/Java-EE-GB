@@ -1,29 +1,16 @@
 package ru.gb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Product {
 
-    @Getter
-    private final int id;
-    @Getter @Setter
+    private Integer id;
     private String title;
-    @Getter @Setter
-    private float cost;
-
-    public Product(int id, String title, float cost){
-        this.id = id;
-        this.title = title;
-        this.cost = cost;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", cost=" + cost +
-                '}';
-    }
+    private Float cost;
 }
