@@ -11,7 +11,7 @@ import java.util.Optional;
 @Component
 public class ProductRepository{
 
-    //@InjectProducts //Зацикливается создание
+    @InjectProducts
     private List<Product> products = new ArrayList<>();
 
     public Product getProduct(int id) {

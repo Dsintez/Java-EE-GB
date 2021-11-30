@@ -1,6 +1,5 @@
 package ru.gb.beans;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -20,8 +19,8 @@ public class InjectProductAnnotationBeanPostProcessor implements BeanPostProcess
 
     List<Product> products = new ArrayList<>();
     private String words[];
-    private float costs[];
-    private int id[];
+    private Float costs[];
+    private Integer id[];
 
     @Autowired
     private Environment environment;
@@ -31,19 +30,19 @@ public class InjectProductAnnotationBeanPostProcessor implements BeanPostProcess
         words = environment.getProperty("ProductNames").split(",");
         String[] costs = environment.getProperty("ProductCosts").split(",");
         String[] ids = environment.getProperty("ProductID").split(",");
-        this.costs = new float[costs.length];
-        this.id = new int[ids.length];
+        this.costs = new Float[costs.length];
+        this.id = new Integer[ids.length];
         for (int i = 0; i < costs.length; i++) {
             this.costs[i] = Float.parseFloat(costs[i]);
             this.id[i] = Integer.parseInt(ids[i]);
+        }
+        for (int i = 0; i < words.length; i++) {
+            products.add(new Product(this.id[i], words[i], this.costs[i]));
         }
     }
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        for (int i = 0; i < words.length; i++) {
-            products.add(new Product(id[i], words[i], costs[i]));
-        }
         Field[] fields = bean.getClass().getDeclaredFields();
         for (Field field : fields) {
             InjectProducts annotation = field.getAnnotation(InjectProducts.class);
