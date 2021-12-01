@@ -11,9 +11,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan("ru.gb")
 @PropertySource("classpath:application.properties")
-@EnableWebMvc
+//@EnableWebMvc
 public class CartConfig {
-    public static final String RESOLVER_PREFIX = "/WEB-INF/view/";
+    /*public static final String RESOLVER_PREFIX = "/WEB-INF/view/";
     public static final String RESOLVER_SUFFIX = ".jsp";
 
     @Bean
@@ -22,5 +22,5 @@ public class CartConfig {
         viewResolver.setPrefix(RESOLVER_PREFIX);
         viewResolver.setSuffix(RESOLVER_SUFFIX);
         return viewResolver;
-    }
+    }*/
 }

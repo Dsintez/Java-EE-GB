@@ -4,29 +4,30 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.gb.entity.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 @Component
 @Scope("prototype")
-public class Cart {
+public class Cart implements Consumer<Product> {
+    private final Map<Integer, Product> products = new HashMap<>(); // дз
 
-    private List<Product> productsCarts = new ArrayList<>();
-    private final ProductRepository productRepository;
-
-    public Cart(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public void add(Product product) {
+        products.put(product.getId(), product);
     }
 
-    public void putProduct(int id) {
-        productsCarts.add(productRepository.getProduct(id));
+    public void deleteByProductId(Integer id) {
+        products.remove(id);
     }
 
-    public void removeProduct(int id) {
-        productsCarts.remove(productRepository.getProduct(id));
+    public void showProductList() {
+        System.out.println(products);
     }
 
-    public List<Product> getProductsCarts() {
-        return productsCarts;
+
+    @Override
+    public void accept(Product product) {
+        add(product);
     }
 }
